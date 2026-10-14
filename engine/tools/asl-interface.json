@@ -1,0 +1,942 @@
+{
+  "license": "GPL-2.0-only",
+  "source": "https://github.com/Argonaut-PS1-Reverse/Stratigise/blob/trunk/specs/croc1.py",
+  "opcodes": {
+    "232": [
+      "CommandError"
+    ],
+    "171": [
+      "SlideOn"
+    ],
+    "25": [
+      "Next"
+    ],
+    "214": [
+      "CommandError"
+    ],
+    "192": [
+      "PlayerTurn"
+    ],
+    "239": [
+      "CommandError"
+    ],
+    "74": [
+      "ShadowType",
+      "int8"
+    ],
+    "46": [
+      "TiltRight",
+      "eval"
+    ],
+    "93": [
+      "Unhide"
+    ],
+    "234": [
+      "CommandError"
+    ],
+    "212": [
+      "CommandError"
+    ],
+    "35": [
+      "Fall"
+    ],
+    "163": [
+      "HangOn"
+    ],
+    "96": [
+      "SetLevel",
+      "eval",
+      "eval"
+    ],
+    "159": [
+      "EndLevel"
+    ],
+    "170": [
+      "PlayerDead"
+    ],
+    "73": [
+      "ShadowSize",
+      "eval"
+    ],
+    "114": [
+      "JumpCtrlOff"
+    ],
+    "252": [
+      "CommandError"
+    ],
+    "191": [
+      "PlayerMove"
+    ],
+    "131": [
+      "PushableOff"
+    ],
+    "177": [
+      "SpawnFrom",
+      "placeholder32_64",
+      "int8",
+      "varargs"
+    ],
+    "42": [
+      "TurnRight",
+      "eval"
+    ],
+    "43": [
+      "TurnLeft",
+      "eval"
+    ],
+    "218": [
+      "CommandError"
+    ],
+    "44": [
+      "TiltBackward",
+      "eval"
+    ],
+    "123": [
+      "LosePickups"
+    ],
+    "49": [
+      "CreateTrigger",
+      "int8",
+      "varargs",
+      "address16",
+      "placeholder0_32"
+    ],
+    "108": [
+      "LetParam",
+      "int16",
+      "eval"
+    ],
+    "204": [
+      "GobboON"
+    ],
+    "81": [
+      "CommandError"
+    ],
+    "30": [
+      "Goto",
+      "address16"
+    ],
+    "245": [
+      "CommandError"
+    ],
+    "95": [
+      "SetCamHeight",
+      "eval"
+    ],
+    "15": [
+      "SpecialFXOn",
+      "eval"
+    ],
+    "88": [
+      "IfJumping",
+      "offset16"
+    ],
+    "107": [
+      "AnimCtrlSpdOff"
+    ],
+    "128": [
+      "PushingOn"
+    ],
+    "13": [
+      "WaitAnimend"
+    ],
+    "85": [
+      "UnpauseTriggers"
+    ],
+    "90": [
+      "Scale",
+      "eval"
+    ],
+    "148": [
+      "Wobble",
+      "int8",
+      "int16"
+    ],
+    "36": [
+      "MoveBackward",
+      "eval"
+    ],
+    "193": [
+      "SetEnvelope",
+      "eval",
+      "eval",
+      "eval",
+      "eval",
+      "eval",
+      "eval"
+    ],
+    "37": [
+      "MoveForward",
+      "eval"
+    ],
+    "124": [
+      "Reverse"
+    ],
+    "235": [
+      "CommandError"
+    ],
+    "47": [
+      "TiltLeft",
+      "eval"
+    ],
+    "244": [
+      "CommandError"
+    ],
+    "91": [
+      "TurnTowardWaypointY",
+      "eval"
+    ],
+    "87": [
+      "IsPlayer"
+    ],
+    "237": [
+      "CommandError"
+    ],
+    "111": [
+      "OpenEyes"
+    ],
+    "116": [
+      "PushCamera"
+    ],
+    "146": [
+      "MovePlayerBackward",
+      "eval"
+    ],
+    "24": [
+      "For",
+      "int8",
+      "int16",
+      "eval",
+      "eval"
+    ],
+    "62": [
+      "ReleaseTrigger"
+    ],
+    "16": [
+      "Wait",
+      "eval"
+    ],
+    "121": [
+      "NextImm"
+    ],
+    "56": [
+      "LetAVar",
+      "int16",
+      "eval"
+    ],
+    "227": [
+      "CommandError"
+    ],
+    "4": [
+      "LoadSample"
+    ],
+    "216": [
+      "CommandError"
+    ],
+    "8": [
+      "TurnTowardWaypointX",
+      "eval"
+    ],
+    "144": [
+      "TurnTowardPosY",
+      "eval",
+      "eval",
+      "eval",
+      "eval"
+    ],
+    "198": [
+      "LevelStats"
+    ],
+    "189": [
+      "ShowBonus"
+    ],
+    "222": [
+      "CommandError"
+    ],
+    "18": [
+      "Until",
+      "eval"
+    ],
+    "206": [
+      "UnActivated"
+    ],
+    "182": [
+      "NextLevel"
+    ],
+    "203": [
+      "QuickPlayer"
+    ],
+    "242": [
+      "CommandError"
+    ],
+    "181": [
+      "Bonus",
+      "int32"
+    ],
+    "65": [
+      "CommandError"
+    ],
+    "11": [
+      "PlayAnim",
+      "eval"
+    ],
+    "127": [
+      "SetCollPoints",
+      "eval"
+    ],
+    "77": [
+      "SetPlayerPosRel",
+      "eval",
+      "eval",
+      "eval"
+    ],
+    "97": [
+      "ShadowOn"
+    ],
+    "102": [
+      "SetCamDist",
+      "eval"
+    ],
+    "215": [
+      "CommandError"
+    ],
+    "100": [
+      "Decelerate"
+    ],
+    "236": [
+      "CommandError"
+    ],
+    "53": [
+      "Remove"
+    ],
+    "199": [
+      "ReSeed"
+    ],
+    "196": [
+      "TurnTowardPlayerXY",
+      "eval",
+      "eval"
+    ],
+    "176": [
+      "Dec",
+      "int8",
+      "int16"
+    ],
+    "5": [
+      "LoadAnimFlag"
+    ],
+    "138": [
+      "TurnTowardPosXY",
+      "eval",
+      "eval",
+      "eval",
+      "eval",
+      "eval"
+    ],
+    "105": [
+      "PlayerCollisionOn"
+    ],
+    "58": [
+      "SetModel",
+      "eval"
+    ],
+    "154": [
+      "DecelerateAngle",
+      "eval"
+    ],
+    "132": [
+      "PushWaypoint"
+    ],
+    "230": [
+      "CommandError"
+    ],
+    "217": [
+      "CommandError"
+    ],
+    "28": [
+      "ProcCall",
+      "address16"
+    ],
+    "246": [
+      "CommandError"
+    ],
+    "188": [
+      "PauseTriggersNoAnim"
+    ],
+    "34": [
+      "Jump",
+      "eval"
+    ],
+    "139": [
+      "NearestWaypointNext"
+    ],
+    "162": [
+      "Activated"
+    ],
+    "187": [
+      "RemoveGobbo"
+    ],
+    "86": [
+      "SetPosition"
+    ],
+    "12": [
+      "StopAnim"
+    ],
+    "31": [
+      "ScaleX",
+      "eval"
+    ],
+    "20": [
+      "EndWhile"
+    ],
+    "125": [
+      "PlayerCollisionOff"
+    ],
+    "210": [
+      "FlashOn"
+    ],
+    "165": [
+      "CreateDeath"
+    ],
+    "63": [
+      "SetAnim",
+      "eval"
+    ],
+    "130": [
+      "PushableOn"
+    ],
+    "78": [
+      "CollectKey"
+    ],
+    "71": [
+      "CamWobble",
+      "eval"
+    ],
+    "118": [
+      "Float"
+    ],
+    "211": [
+      "FlashOff"
+    ],
+    "184": [
+      "NoHang"
+    ],
+    "243": [
+      "CommandError"
+    ],
+    "133": [
+      "PullWaypoint"
+    ],
+    "180": [
+      "CollectJigsaw",
+      "eval"
+    ],
+    "112": [
+      "CloseEyes",
+      "int8",
+      "varargs"
+    ],
+    "200": [
+      "ShowBonusOn"
+    ],
+    "249": [
+      "CommandError"
+    ],
+    "253": [
+      "Command0xfd"
+    ],
+    "82": [
+      "CollisionOn",
+      "eval"
+    ],
+    "0": [
+      "CommandError"
+    ],
+    "23": [
+      "IfAnimend",
+      "offset16"
+    ],
+    "207": [
+      "EndSubLevel"
+    ],
+    "22": [
+      "Else",
+      "offset16"
+    ],
+    "174": [
+      "UntilImm",
+      "eval"
+    ],
+    "84": [
+      "PauseTriggers"
+    ],
+    "92": [
+      "Hide"
+    ],
+    "136": [
+      "PrevWaypoint"
+    ],
+    "161": [
+      "PitchShift",
+      "eval",
+      "eval"
+    ],
+    "32": [
+      "ScaleY",
+      "eval"
+    ],
+    "228": [
+      "CommandError"
+    ],
+    "224": [
+      "CommandError"
+    ],
+    "195": [
+      "TurnTowardPlayerY",
+      "eval"
+    ],
+    "205": [
+      "GobboOFF"
+    ],
+    "10": [
+      "StopSound",
+      "eval"
+    ],
+    "190": [
+      "LookAtMeMap"
+    ],
+    "168": [
+      "PausePlayer"
+    ],
+    "72": [
+      "LookAtMe_0"
+    ],
+    "149": [
+      "CamHold",
+      "eval"
+    ],
+    "33": [
+      "ScaleZ",
+      "eval"
+    ],
+    "173": [
+      "FirstWaypoint"
+    ],
+    "151": [
+      "SlowDown",
+      "eval"
+    ],
+    "129": [
+      "PushingOff"
+    ],
+    "226": [
+      "CommandError"
+    ],
+    "141": [
+      "DeleteWaypoint"
+    ],
+    "221": [
+      "CommandError"
+    ],
+    "169": [
+      "UnpausePlayer"
+    ],
+    "99": [
+      "Accelerate"
+    ],
+    "166": [
+      "DoDeath"
+    ],
+    "7": [
+      "TurnTowardY",
+      "int16",
+      "eval"
+    ],
+    "98": [
+      "ShadowOff"
+    ],
+    "106": [
+      "AnimCtrlSpdOn"
+    ],
+    "89": [
+      "IfFalling",
+      "offset16"
+    ],
+    "6": [
+      "TurnTowardX",
+      "int16",
+      "eval"
+    ],
+    "104": [
+      "WaitEvent",
+      "int8"
+    ],
+    "51": [
+      "CommandError"
+    ],
+    "155": [
+      "MovePosition",
+      "int16",
+      "int16",
+      "int16",
+      "eval",
+      "eval"
+    ],
+    "3": [
+      "LoadAnim"
+    ],
+    "250": [
+      "CommandError"
+    ],
+    "9": [
+      "PlaySound",
+      "int8",
+      "eval",
+      "varargs"
+    ],
+    "213": [
+      "CommandError"
+    ],
+    "39": [
+      "MoveDown",
+      "eval"
+    ],
+    "60": [
+      "Blink",
+      "int8",
+      "varargs"
+    ],
+    "40": [
+      "MoveLeft",
+      "eval"
+    ],
+    "135": [
+      "NextWaypoint"
+    ],
+    "68": [
+      "Inc",
+      "int8",
+      "int16"
+    ],
+    "160": [
+      "StopDead"
+    ],
+    "83": [
+      "CollisionOff",
+      "eval"
+    ],
+    "17": [
+      "Repeat"
+    ],
+    "80": [
+      "CommandError"
+    ],
+    "79": [
+      "RemoveKey"
+    ],
+    "153": [
+      "AccelerateAngle",
+      "eval"
+    ],
+    "76": [
+      "StopFall"
+    ],
+    "27": [
+      "EndCase",
+      "address16"
+    ],
+    "197": [
+      "ForceDoor",
+      "eval"
+    ],
+    "137": [
+      "TurnTowardWaypointXY",
+      "eval",
+      "eval"
+    ],
+    "178": [
+      "LetXParam",
+      "int16",
+      "eval"
+    ],
+    "164": [
+      "HangOff"
+    ],
+    "14": [
+      "Print",
+      "string"
+    ],
+    "186": [
+      "PlayerNoStood"
+    ],
+    "240": [
+      "CommandError"
+    ],
+    "152": [
+      "SmoothSpeed",
+      "eval"
+    ],
+    "143": [
+      "MoveForwardAngle",
+      "eval",
+      "eval"
+    ],
+    "61": [
+      "HoldTrigger"
+    ],
+    "145": [
+      "MovePlayerForward",
+      "eval"
+    ],
+    "156": [
+      "RemoveFromMap"
+    ],
+    "1": [
+      "LoadObject"
+    ],
+    "220": [
+      "CommandError"
+    ],
+    "219": [
+      "CommandError"
+    ],
+    "21": [
+      "If",
+      "eval",
+      "offset16"
+    ],
+    "147": [
+      "LoopSound",
+      "eval",
+      "eval"
+    ],
+    "29": [
+      "ResetPosition"
+    ],
+    "48": [
+      "Spawn",
+      "placeholder32_64",
+      "int8",
+      "varargs"
+    ],
+    "157": [
+      "InitCrystal"
+    ],
+    "223": [
+      "CommandError"
+    ],
+    "142": [
+      "CommandError"
+    ],
+    "175": [
+      "Collected"
+    ],
+    "101": [
+      "SetAnimSpeed",
+      "eval"
+    ],
+    "69": [
+      "PlayerAttackOn"
+    ],
+    "172": [
+      "SlideOff"
+    ],
+    "64": [
+      "TurnTowardXY",
+      "int16",
+      "eval",
+      "eval"
+    ],
+    "50": [
+      "KillTrigger",
+      "int16"
+    ],
+    "26": [
+      "Switch",
+      "eval",
+      "int16",
+      "address16",
+      "varargs"
+    ],
+    "117": [
+      "PullCamera"
+    ],
+    "202": [
+      "RemoveModel"
+    ],
+    "115": [
+      "Stomp"
+    ],
+    "183": [
+      "LookAtMe_1"
+    ],
+    "122": [
+      "AddPickup",
+      "eval"
+    ],
+    "251": [
+      "CommandError"
+    ],
+    "52": [
+      "EndTrigger"
+    ],
+    "194": [
+      "TurnTowardPlayerX",
+      "eval"
+    ],
+    "126": [
+      "SetCollPoint",
+      "eval",
+      "eval",
+      "eval",
+      "eval"
+    ],
+    "248": [
+      "CommandError"
+    ],
+    "120": [
+      "SetCamera",
+      "eval"
+    ],
+    "225": [
+      "CommandError"
+    ],
+    "179": [
+      "RemoveCrystal"
+    ],
+    "54": [
+      "LetGVar",
+      "int16",
+      "eval"
+    ],
+    "119": [
+      "SpawnChild",
+      "placeholder32_64",
+      "int8",
+      "varargs"
+    ],
+    "208": [
+      "TurnOffLookAtMe"
+    ],
+    "134": [
+      "EndWhileImm"
+    ],
+    "233": [
+      "CommandError"
+    ],
+    "167": [
+      "EndCrystal"
+    ],
+    "231": [
+      "CommandError"
+    ],
+    "57": [
+      "EndProc"
+    ],
+    "103": [
+      "UserTrigger",
+      "int16",
+      "eval"
+    ],
+    "75": [
+      "ClearAnim"
+    ],
+    "2": [
+      "LoadSprite"
+    ],
+    "255": [
+      "LewisTest",
+      "int8",
+      "eval"
+    ],
+    "38": [
+      "MoveRight",
+      "eval"
+    ],
+    "229": [
+      "CommandError"
+    ],
+    "140": [
+      "NearestWaypointPrev"
+    ],
+    "41": [
+      "MoveUp",
+      "eval"
+    ],
+    "254": [
+      "TonyTest"
+    ],
+    "158": [
+      "Crystal"
+    ],
+    "109": [
+      "TurnTowardPosX",
+      "eval",
+      "eval",
+      "eval",
+      "eval"
+    ],
+    "150": [
+      "SpeedUp",
+      "eval"
+    ],
+    "238": [
+      "CommandError"
+    ],
+    "45": [
+      "TiltForward",
+      "eval"
+    ],
+    "70": [
+      "PlayerAttackOff"
+    ],
+    "209": [
+      "HeightFloat"
+    ],
+    "185": [
+      "Vibrate",
+      "eval"
+    ],
+    "59": [
+      "FileEnd"
+    ],
+    "201": [
+      "ShowBonusOff"
+    ],
+    "67": [
+      "Release",
+      "string"
+    ],
+    "94": [
+      "LetXGVar",
+      "int16",
+      "eval"
+    ],
+    "247": [
+      "CommandError"
+    ],
+    "55": [
+      "LetPGVar",
+      "int16",
+      "eval"
+    ],
+    "66": [
+      "Hold"
+    ],
+    "110": [
+      "SpecialFXOff",
+      "eval"
+    ],
+    "113": [
+      "JumpCtrlOn"
+    ],
+    "241": [
+      "CommandError"
+    ],
+    "19": [
+      "While",
+      "eval",
+      "offset16"
+    ]
+  }
+}

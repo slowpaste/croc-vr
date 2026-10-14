@@ -1,0 +1,72 @@
+name: Build desktop downloads
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+permissions:
+  contents: read
+jobs:
+  desktop:
+    if: ${{ !startsWith(github.ref, 'refs/tags/v1.0.') }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            name: windows-x64
+          - os: ubuntu-22.04
+            name: linux-x64
+          - os: macos-15
+            name: macos-arm64
+          - os: macos-15-intel
+            name: macos-x64
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install packaging tools
+        run: python -m pip install -r requirements-desktop.txt
+      - name: Builder tests
+        run: python -m unittest discover -s tests -v
+      - name: Check real private prerequisite downloads
+        run: python scripts/verify-portable-tools.py
+      - name: Linux desktop libraries
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y xvfb libgl1 libx11-6 libxcursor1 libxinerama1 libxrandr2 libxi6 libasound2
+      - name: Package and test Windows or Mac app
+        if: runner.os != 'Linux'
+        run: python scripts/package-desktop.py --smoke
+      - name: Package and test Linux app
+        if: runner.os == 'Linux'
+        run: xvfb-run -a python scripts/package-desktop.py --smoke
+      - uses: actions/upload-artifact@v4
+        with:
+          name: desktop-${{ matrix.name }}
+          path: |
+            dist/desktop-release/*
+            build/desktop/smoke.json
+          if-no-files-found: error
+  publish:
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: desktop
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: desktop-*
+          path: downloads
+      - name: Gather release files
+        run: |
+          mkdir release
+          find downloads -type f \( -name '*.exe' -o -name '*.dmg' -o -name '*.tar.gz' -o -name '*.sha256' \) -exec cp {} release/ \;
+          cat release/*.sha256 > release/SHA256SUMS.txt
+          git archive --format=zip --prefix=croc-vr/ -o release/croc-vr-source.zip HEAD
+      - name: Publish desktop apps and source
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" release/* --title "croc of slop VR $GITHUB_REF_NAME" --notes-file docs/desktop-release.md

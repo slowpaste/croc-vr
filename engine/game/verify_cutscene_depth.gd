@@ -1,0 +1,17 @@
+extends SceneTree
+func _initialize() -> void:
+	var depth = preload("res://source_cutscene_depth.gd")
+	assert(depth.face(0,[300,300,300]).depth == 298)
+	assert(depth.face(0,[65535,65535,65535]).bucket == 1019)
+	assert(depth.face(0,[64,1024,192,512]).depth == 128)
+	assert(depth.face(0x40,[64,1024,192,512]).depth == 448)
+	assert(depth.face(0,[64,1024,192,512],true).depth == 1024)
+	assert(depth.face(0x43,[64,1024,192,512],true,0).depth == 1088)
+	assert(depth.face(0x43,[64,1024,192,512],true,2).depth == 1024)
+	assert(depth.face(0x42,[64,1024,192,512],true,0).depth == 1024)
+	assert(depth.face(0,[1,2]).has("fault"))
+	assert(depth.terrain(0,[64,1024,192]).depth == 1024)
+	assert(depth.terrain(0x43,[64,1024,192]).depth == 1088)
+	assert(depth.terrain(0x42,[64,1024,192,512]).depth == 1024)
+	print("PASS: native triangle shift-average, flat/Gouraud quad depths, maximum mode and textured-flat priority bias")
+	quit(0)

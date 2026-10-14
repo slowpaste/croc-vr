@@ -1,0 +1,27 @@
+config_version=5
+
+[application]
+config/name="Croc VR - implementation testbed"
+run/main_scene="res://imported.tscn"
+run/main_scene.native_probe="res://probe_cutscene_screen.tscn"
+run/main_scene.sad_cache_probe="res://probe_sad_cache.tscn"
+run/main_scene.portal_probe="res://probe_cutscene_portal.tscn"
+run/main_scene.native_menu_probe="res://probe_native_options.tscn"
+run/main_scene.interaction_perf_probe="res://probe_interaction_performance.tscn"
+run/main_scene.frontend_perf_probe="res://probe_frontend_performance.tscn"
+run/main_scene.pose_perf_probe="res://probe_pose_mesh_performance.tscn"
+
+[display]
+window/size/viewport_width=1280
+window/size/viewport_height=720
+
+[rendering]
+renderer/rendering_method="mobile"
+textures/default_filters/use_nearest_mipmap_filter=false
+textures/vram_compression/import_etc2_astc=true
+
+[xr]
+openxr/enabled=true
+openxr/extensions/eye_gaze_interaction=true
+shaders/enabled=true
+

@@ -1,0 +1,15 @@
+extends SceneTree
+func _initialize() -> void:
+	var projection = preload("res://source_gte_projection.gd")
+	var entries := PackedByteArray()
+	for index in range(257): entries.append(projection.reciprocal_entry(index))
+	var hash := HashingContext.new()
+	hash.start(HashingContext.HASH_SHA256); hash.update(entries)
+	assert(hash.finish().hex_encode() == "749321f5c391c354ceae093365b71196deba24f60d6c46f682ccfe14073d78d7")
+	assert(projection.divide(0,1) == 0 and projection.divide(320,0) == 0x1ffff)
+	assert(projection.divide(320,160) == 0x1ffff and projection.divide(65535,32768) == 131070)
+	assert(projection.divide(320,640) == 32768)
+	assert(projection.screen(Vector2i(100,50),640,320,Vector2i(256<<16,120<<16)) == Vector2i(306,145))
+	assert(projection.screen(Vector2i(32767,-32768),160,320,Vector2i.ZERO) == Vector2i(1023,-1024))
+	print("PASS: GTE integer reciprocal, divide overflow, perspective offsets and screen clamps")
+	quit(0)

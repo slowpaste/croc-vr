@@ -1,0 +1,73 @@
+extends Node3D
+const Menu=preload("res://source_main_menu.gd")
+var root: Viewport
+func _ready() -> void:
+	root=get_tree().root;call_deferred("verify")
+func select(world: Node, row: int, pressed: int = 0x800000) -> void:
+	world.source_options_state.navigation=Menu.initialize(row,int(world.source_options_state.navigation.last_index))
+	assert(world.process_source_options(0,pressed))
+func verify() -> void:
+	var world=load("res://imported.tscn").instantiate();root.add_child(world)
+	await get_tree().process_frame;world.set_process(false);world.set_physics_process(false)
+	world.vr_settings.settings_path="user://native-options-verification.cfg"
+	world.vr_controls.layout="modern";world.vr_controls.turn_mode="snap"
+	world.vr_controls.snap_degrees=30;world.vr_controls.foveation_level=0
+	var before_menu:Transform3D=world.camera.global_transform
+	world.vr_settings.controller_sample(true,true)
+	assert(world.source_main_mode==4)
+	world.vr_settings.controller_sample(false,true)
+	world.vr_settings.controller_sample(true,true)
+	assert(world.source_main_mode==8 and world.source_options_parent_mode==4 and not world.vr_settings.opened)
+	var ticks:int=world.source_tick_count
+	world._physics_process(0.1)
+	assert(world.source_tick_count==ticks)
+	assert(world.camera.global_transform==before_menu)
+	select(world,0)
+	assert(world.source_options_state.page==2)
+	assert(world.source_options_screen.panel.preview.compositor==null)
+	select(world,2)
+	assert(not world.vr_controls.haptics_enabled)
+	select(world,2)
+	assert(world.vr_controls.haptics_enabled)
+	select(world,0)
+	assert(world.vr_controls.layout=="classic")
+	assert(world.source_options_screen.panel.frame_prompts.button_mesh!=null)
+	select(world,1)
+	assert(world.source_options_state.page==21)
+	select(world,0)
+	assert(world.vr_controls.turn_mode=="smooth")
+	select(world,1)
+	assert(world.vr_controls.smooth_degrees_per_second==120)
+	select(world,2)
+	assert(world.vr_controls.jump_camera=="follow")
+	select(world,3)
+	assert(world.vr_camera_pitch>0)
+	assert(world.process_source_options(0,0x100000))
+	assert(world.source_options_state.page==2 and world.source_options_state.navigation.selected==1)
+	assert(world.process_source_options(0,0x100000))
+	assert(world.source_options_state.page==1)
+	select(world,2)
+	assert(world.source_options_state.page==4)
+	select(world,3)
+	assert(world.source_options_state.page==22)
+	select(world,0)
+	assert(world.vr_controls.foveation_level==1)
+	if OS.get_cmdline_user_args().has("--capture-native-menu"):
+		for page in [2,21,22]:
+			world.source_options_state.page=page;world.source_options_state.navigation=Menu.initialize(0,4 if page==21 else 2)
+			assert(world.process_source_options(0,0))
+			for frame in range(4):await get_tree().process_frame
+			await RenderingServer.frame_post_draw
+			assert(world.source_options_screen.panel.output_texture().get_image().save_png(OS.get_user_data_dir().path_join("frame-native-options-%d.png"%page))==OK)
+		world.source_options_state.page=22;world.source_options_state.navigation=Menu.initialize(0,2)
+	var restored=preload("res://vr_controls.gd").new();restored.load_settings(world.vr_settings.settings_path)
+	assert(restored.layout=="classic" and restored.turn_mode=="smooth" and restored.jump_camera=="follow" and restored.foveation_level==1 and restored.camera_tilt>0)
+	assert(world.process_source_options(0,0x100000))
+	assert(world.source_options_state.page==4 and world.source_options_state.navigation.selected==3)
+	select(world,2)
+	assert(world.vr_controls.layout=="modern" and world.vr_controls.foveation_level==0 and world.vr_controls.jump_camera=="steady")
+	world.vr_settings.toggle()
+	assert(world.source_main_mode==4 and world.source_controller_enabled and world.source_resume_input_baseline_pending)
+	world.queue_free();await get_tree().process_frame
+	print("PASS: original Options hierarchy, A/B prompts, paused gameplay, camera/rendering changes, persistence, defaults and resume")
+	get_tree().quit(0)

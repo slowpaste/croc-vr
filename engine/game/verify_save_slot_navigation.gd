@@ -1,0 +1,15 @@
+extends SceneTree
+const Slots=preload("res://source_save_slot_navigation.gd")
+func _initialize() -> void:
+	assert(Slots.advance(0,3,0,0,0,0x20000)=={"selected":0,"sounds":["BON_BEEP"]})
+	assert(Slots.advance(2,3,0,0,0,0x80000)=={"selected":2,"sounds":["BON_BEEP"]})
+	assert(Slots.advance(1,3,0,0,0,0xa0000)=={"selected":1,"sounds":["SELECT","SELECT"]})
+	assert(Slots.advance(0,3,0,0,0,0xa0000)=={"selected":1,"sounds":["BON_BEEP","SELECT"]})
+	assert(Slots.advance(2,3,1,1,0,0x80000).selected==3)
+	assert(Slots.advance(3,3,1,1,0,0x80000).sounds==["BON_BEEP"])
+	assert(Slots.advance(0,0,0,0,0,0x80000).sounds==["BON_BEEP"])
+	assert(Slots.advance(1,3,2,0,2,0xa0000)=={"selected":1,"sounds":[]})
+	assert(Slots.advance(1,3,0,0,0,0).selected==1)
+	assert(Slots.advance(15,15,0,0,0,0).has("fault"))
+	print("PASS: source-derived save-slot edge order, clamped bounds/error sounds, new entry and unformatted Delete lock")
+	quit(0)

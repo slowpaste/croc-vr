@@ -1,0 +1,10 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs');
+const {state,sector}=require('./xa-audio.cjs'),{Disc}=require('./disc.cjs');
+function fixture(){const bytes=Buffer.alloc(2352);bytes.fill(255,1,11);bytes[15]=2;Buffer.from([1,1,0x64,0x41]).copy(bytes,16);bytes.copy(bytes,20,16,20);for(let g=0;g<18;g++){const at=24+g*128;bytes.fill(12,at,at+16);bytes.fill(0xf1,at+16,at+128);}return bytes;}
+test('XA stereo4-bit nibble layout and sector frame count',()=>{const result=sector(fixture(),state());assert.equal(result.frames,2016);assert.equal(result.sampleRate,37800);assert.equal(result.channels,2);for(let f=0;f<result.frames;f++){assert.equal(result.pcm.readInt16LE(f*4),1);assert.equal(result.pcm.readInt16LE(f*4+2),-1);}});
+test('XA rejects malformed headers, parameter copies and coding',()=>{assert.throws(()=>sector(Buffer.alloc(2352),state()));const b=fixture();b[20]=2;assert.throws(()=>sector(b,state()));const p=fixture();p[24]=0;assert.throws(()=>sector(p,state()));});
+test('XA predictor history persists per stereo channel across sectors and clips signed16',()=>{const bytes=fixture();for(let group=0;group<18;group++)bytes.fill(0x10,24+group*128,40+group*128);const decoder=state(),first=sector(bytes,decoder),next=sector(bytes,decoder);assert.equal(first.pcm.readInt16LE(0),4096);assert.equal(first.pcm.readInt16LE(4),7936);assert.equal(next.pcm.readInt16LE(0),32767);assert.equal(next.pcm.readInt16LE(2),-32768);});
+test('original music pack first interleave decodes seven isolated channel states',{skip:!process.env.CROC_BACKUP},()=>{
+  const disc=new Disc(process.env.CROC_BACKUP);try{const entry=disc.files.find(x=>x.path==='/PACK1.STR');const bytes=Buffer.alloc(2352);for(let channel=1;channel<=7;channel++){fs.readSync(disc.fd,bytes,0,2352,(entry.lba+channel-1)*2352);const result=sector(bytes,state());assert.equal(result.file,1);assert.equal(result.channel,channel);assert.equal(result.coding,0x41);assert.equal(result.pcm.length,8064);}}finally{disc.close();}
+});

@@ -1,0 +1,18 @@
+extends SceneTree
+const Load=preload("res://source_load_session.gd")
+func _initialize() -> void:
+	var state := Load.initialize([{"slot":3,"path":"a"},{"slot":7,"path":"b"}])
+	state=Load.advance(state,0,0x80000);assert(state.slot==1 and state.sounds==["SELECT"])
+	state=Load.advance(state,0,0x800000);assert(state.pending_path=="b" and state.sounds==["START"])
+	assert(Load.advance(state,0,0x20000).slot==1)
+	state=Load.initialize([]);state=Load.advance(state,0,0x800000)
+	assert(state.pending_path=="" and state.sounds==["BON_BEEP"] and not state.exit_requested)
+	state=Load.initialize([{"path":"a","fault":"bad checksum"}]);state=Load.advance(state,0,0x800000)
+	assert(state.pending_path=="" and state.sounds==["BON_BEEP"])
+	state=Load.initialize([]);state=Load.advance(state,0,0x40000)
+	assert(state.navigation.selected==1)
+	state=Load.advance(state,0,0x800000);assert(state.exit_requested)
+	state=Load.initialize([{"path":"a"}]);state=Load.advance(state,0,0x900000)
+	assert(state.exit_requested and state.pending_path=="")
+	print("PASS: composed Load action/slot navigation, selected path request, empty/corrupt refusal, Return and cancel")
+	quit(0)

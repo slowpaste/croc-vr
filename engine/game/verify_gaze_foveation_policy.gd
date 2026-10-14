@@ -1,0 +1,16 @@
+extends SceneTree
+func _initialize() -> void:
+	var effect = preload("res://vr_foveation.gd").new()
+	effect.update_tracking_policy(0.2,true,true)
+	assert(not effect.active_density)
+	effect.update_tracking_policy(0.11,true,true)
+	assert(effect.active_density)
+	effect.update_tracking_policy(0.01,false,true)
+	assert(not effect.active_density and effect.stable_gaze_seconds==0)
+	effect.update_tracking_policy(0.29,true,true)
+	assert(not effect.active_density)
+	effect.update_tracking_policy(0.1,true,false)
+	assert(not effect.active_density and effect.stable_gaze_seconds==0)
+	effect.free()
+	print("PASS: gaze acquisition delay, immediate tracking-loss full detail, recovery and menu/cinematic exclusion")
+	quit(0)

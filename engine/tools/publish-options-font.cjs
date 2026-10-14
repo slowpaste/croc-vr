@@ -1,0 +1,18 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
+const {extract}=require('./options-font.cjs');
+const content=path.resolve(process.argv[3]);
+const manifestPath=path.join(content,'manifest.json');
+const manifest=JSON.parse(fs.readFileSync(manifestPath,'utf8'));
+if(manifest.schema!==1)throw Error('Unsupported imported manifest');
+const data=extract(process.argv[2]);
+const bytes=JSON.stringify(data);
+const digest=crypto.createHash('sha256').update(bytes).digest('hex');
+const relative='options/font-'+digest+'.json';
+const destination=path.join(content,relative);
+fs.mkdirSync(path.dirname(destination),{recursive:true});
+if(fs.existsSync(destination)&&fs.readFileSync(destination,'utf8')!==bytes)throw Error('Existing Options font payload mismatch');
+fs.writeFileSync(destination,bytes);
+manifest.optionsFont={file:relative,sha256:digest,executableSha256:data.executableSha256};
+fs.writeFileSync(manifestPath,JSON.stringify(manifest));
+console.log('OPTIONS_FONT_PUBLISHED:',relative);

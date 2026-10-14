@@ -1,0 +1,28 @@
+name: Source and builder checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  checks:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Builder integration tests (synthetic data only)
+        run: python -m unittest discover -s tests -v
+      - name: Disc importer regression tests (synthetic data only)
+        run: node --test engine/tools/*.test.cjs
+      - name: Linux launcher syntax
+        if: runner.os == 'Linux'
+        run: bash -n scripts/build-linux.sh scripts/launch-ui.sh
