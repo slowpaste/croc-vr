@@ -1,6 +1,6 @@
 # croc of slop VR
 
-Build a Steam Frame app or Facebook Shitface 3 APK from your own **Croc: Legend of the Gobbos PlayStation disc backup**. The finished app includes the game data. Your disc image stays on your computer.
+Build a Steam Frame app or Facebook Shitface 3 APK from your own **Croc: Legend of the Gobbos PlayStation disc backup**.
 
 ## 1. Download the app
 
